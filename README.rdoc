@@ -1,0 +1,50 @@
+= Name
+
+fake_name_generator - a light weight Ruby wrapper for the FakeNameGenerator.com API
+
+= Description
+
+
+= Requirements
+
+In order to use the FakeNameGenerator API, you will need to acquire an API key from
+
+= Installation
+
+  [sudo] gem install fake_name_generator
+
+= Usage
+
+  > fake_name = FakeNameGenerator.new(:api_key => 'VALID_KEY')
+  > puts fake_name.full_name
+  "Ignatius J. Reilly"
+  > puts fake_name.blood_type
+  "A-"
+
+= Known Issues
+
+* This is my first attempt at a API-wrapping gem. There are certainly better ways to do this.
+
+= TODO
+
+* Maybe detach the HTTP call from .new(), and move to its own method.
+
+= Contributing
+
+I would love some help and pointers on how to make this a better gem.
+
+* Fork the project
+* Please create a topic branch to make your changes
+* Change, add, improve, upgrade, etc
+* Please add tests for anything you've added, and adjust tests for things you've changed
+* Make sure you rebase off of master one last time
+* Send a pull request on GitHub
+
+= Authors
+
+* Bill Turner <billturner@gmail.com>
+
+= License
+
+MIT License. Copyright 2011 Bill Turner. Please see `LICENSE`. 
+
