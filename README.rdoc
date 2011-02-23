@@ -1,19 +1,28 @@
-= Name
+== Name
 
 fake_name_generator - a light weight Ruby wrapper for the FakeNameGenerator.com API
 
-= Description
+== Description
 
+This is a fairly simple Ruby wrapper for the FakeNameGenerator.com API. The API returns a full name, an address, fake credit card numbers, blood type(!), weight, and even a fake UPS number.
 
-= Requirements
+== Caveats
 
-In order to use the FakeNameGenerator API, you will need to acquire an API key from
+When I first thought of putting together this API wrapper for FakeNameGenerator.com, they had a free API unless you needed to bulk load generated names (> 10,000). Since then, they've handed over the API-handling duties to a third party named WebServius <http://www.webservius.com/corp/>.
 
-= Installation
+Now, there is a limit of 50 free API calls upon signing up, and then after that API results cost $0.001 per additional 50 requests. It's certainly not an outrageous cost, but, alas, it's no longer a free API.
+
+It's also my first attempt at a Ruby wrapper for a web service API, so there are most likely inefficiencies and some bad code. I certainly appreciate any feedback anyone could provide. See the Contributing section below.
+
+== Requirements
+
+In order to use the FakeNameGenerator API, you will need to acquire an API key from FakeNameGenerator.com at <http://www.fakenamegenerator.com/api.php>. The API key actually comes from WebServius (as mentioned above), but the entrance is through the FakeNameGenerator website.
+
+== Installation
 
   [sudo] gem install fake_name_generator
 
-= Usage
+== Usage
 
   > fake_name = FakeNameGenerator.new(:api_key => 'VALID_KEY')
   > puts fake_name.full_name
@@ -21,15 +30,15 @@ In order to use the FakeNameGenerator API, you will need to acquire an API key f
   > puts fake_name.blood_type
   "A-"
 
-= Known Issues
+== Known Issues
 
 * This is my first attempt at a API-wrapping gem. There are certainly better ways to do this.
 
-= TODO
+== TODO
 
 * Maybe detach the HTTP call from .new(), and move to its own method.
 
-= Contributing
+== Contributing
 
 I would love some help and pointers on how to make this a better gem.
 
@@ -40,11 +49,11 @@ I would love some help and pointers on how to make this a better gem.
 * Make sure you rebase off of master one last time
 * Send a pull request on GitHub
 
-= Authors
+== Authors
 
 * Bill Turner <billturner@gmail.com>
 
-= License
+== License
 
 MIT License. Copyright 2011 Bill Turner. Please see `LICENSE`. 
 

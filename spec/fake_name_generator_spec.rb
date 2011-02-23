@@ -61,15 +61,13 @@ describe FakeNameGenerator do
 
   end
 
-  context "invalid api key" do
+  #context "invalid api key" do
 
-    it "should return a XXX status code" 
+    ##it "should return an error" do
+      ##lambda { FakeNameGenerator.new(:api_key => 'INVALID_API_KEY') }.should raise_error(FakeNameGenerator::APIKeyInvalidError)
+    ##end
 
-    it "should return an XML content type"
-
-    it "should return an error string"
-
-  end
+  #end
 
   context "valid api key" do
 
@@ -77,19 +75,47 @@ describe FakeNameGenerator do
       @fake = FakeNameGenerator.new(:api_key => 'VALID_API_KEY')
     end
 
-    it "should return a XXX status code" 
+    it "should fill in the name fields" do
+      @fake.full_name.should_not be_empty
+      @fake.first_name.should_not be_empty
+      @fake.middle_name.should_not be_empty
+      @fake.last_name.should_not be_empty
+      @fake.maiden_name.should_not be_empty
+    end
 
-    it "should return an XML content type"
+    it "should fill in the address fields" do
+      @fake.street1.should_not be_empty
+      @fake.street2.should_not be_empty
+      @fake.city.should_not be_empty
+      @fake.state.should_not be_empty
+      @fake.zip.should_not be_empty
+      @fake.country_code.should_not be_empty
+      @fake.phone_number.should_not be_empty
+    end
 
-    it "should return an error string"
+    it "should fill in the credit card fields" do
+      @fake.cc_type.should_not be_empty
+      @fake.cc_number.should_not be_empty
+      @fake.cc_exp_month.should_not be_nil
+      @fake.cc_exp_year.should_not be_nil
+      @fake.cc_cvv.should_not be_empty
+    end
 
-    it "should fill in the name fields"
-
-    it "should fill in the address fields"
-
-    it "should fill in the credit card fields"
-
-    it "should fill in the other random values"
+    it "should fill in the other random values" do
+      @fake.gender_name.should_not be_empty
+      @fake.birthday.should_not be_empty
+      @fake.occupation.should_not be_empty
+      @fake.password.should_not be_empty
+      @fake.domain.should_not be_empty
+      @fake.national_id.should_not be_empty
+      @fake.national_id_type.should_not be_empty
+      @fake.blood_type.should_not be_empty
+      @fake.weight_kilograms.should_not be_nil
+      @fake.weight_pounds.should_not be_nil
+      @fake.height_centimeters.should_not be_nil
+      @fake.height_inches.should_not be_nil
+      @fake.ups_tracking_number.should_not be_empty
+    end
 
   end
 

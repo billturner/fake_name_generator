@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fake_name_generator (0.1.0)
+    fake_name_generator (0.0.1)
       json (>= 1.5.1)
 
 GEM
