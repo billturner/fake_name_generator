@@ -55,5 +55,5 @@ I would love some help and pointers on how to make this a better gem.
 
 == License
 
-MIT License. Copyright 2011 Bill Turner. Please see `LICENSE`. 
+MIT License. Copyright 2011 Bill Turner. Please see +LICENSE+.
 

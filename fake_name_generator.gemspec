@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Bill Turner"]
   s.email       = ["billturner@gmail.com"]
   s.homepage    = "https://github.com/billturner/fake_name_generator"
-  s.summary     = "Ruby gem that provides easy access to the FakeNameGenerator.com API"
-  s.description = "Ruby gem that provides easy access to the FakeNameGenerator.com API"
+  s.summary     = "A simple Ruby wrapper to the FakeNameGenerator.com API"
+  s.description = "A simple Ruby wrapper to the FakeNameGenerator.com API"
 
   s.required_rubygems_version = ">= 1.3.6"
   s.rubyforge_project         = "fake_name_generator"
