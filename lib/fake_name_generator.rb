@@ -37,6 +37,15 @@ require 'json'
 # To see what options are available for country and nameset, see
 # FakeNameGenerator::VALID_COUNTRY_CODES and 
 # FakeNameGenerator::VALID_NAMESET_CODES, respectively.
+#
+# You can also specify the gender you would prefer in the resulting
+# fake name. To do so, use the +:gender+ parameter:
+#
+#  fake_name = FakeNameGenerator.new(
+#    :api_key => 'VALID_API_KEY',
+#    :gender => '1')
+#
+# Where '0' is random, '1' is male, and '2' is female.
 class FakeNameGenerator
 
   ##
@@ -70,8 +79,8 @@ class FakeNameGenerator
   attr_reader :country,
     :nameset,
     :gender,
-    :data
-  attr_accessor :full_name,
+    :data,
+    :full_name,
     :first_name,
     :middle_name,
     :last_name,
