@@ -117,6 +117,10 @@ describe FakeNameGenerator do
       @fake.ups_tracking_number.should_not be_empty
     end
 
+    it "should provide its data in JSON form when converted to_json" do
+      @fake.to_json.should == @fake.data.to_json
+    end
+
   end
 
 end

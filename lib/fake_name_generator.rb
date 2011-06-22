@@ -142,7 +142,10 @@ class FakeNameGenerator
     else
       raise StandardError, "Unexpected response from FakeNameGenerator.com API"
     end
+  end
 
+  def to_json
+    @data.to_json
   end
 
   private
