@@ -84,7 +84,8 @@ class FakeNameGenerator
   # * _nameset_ = language-related names returned (default: 'us')
   # * _gender_ = specify whether random, male, or female values returned (default: random)
   def initialize(options={})
-    @api_key = options[:api_key] or raise ArgumentError, "No API key provided"
+    options[:api_key] || options[:json_data] or raise ArgumentError, "No API key or JSON data provided"
+    @api_key = options[:api_key]
     @country = options[:country] || DEFAULT_COUNTRY
     @nameset = options[:nameset] || DEFAULT_NAMESET
     @gender = options[:gender] || DEFAULT_GENDER
@@ -93,18 +94,22 @@ class FakeNameGenerator
     raise ArgumentError, "Specified nameset parameter is not valid. Please see FakeNameGenerator::VALID_NAMESET_CODES" unless VALID_NAMESET_CODES.include?(@nameset)
     raise ArgumentError, "Specified gender parameter is not valid. Please see FakeNameGenerator::VALID_GENDER_CODES" unless VALID_GENDER_CODES.include?(@gender)
 
-    url = [API_URL, build_params].join('?')
-    response = Net::HTTP.get_response(URI.parse(url))
-
-    case response.code
-    when '500' || 500
-      raise APIConnectionError, "FakeNameGenerator API not working (500 Error)"
-    when '403' || 403
-      raise APIKeyInvalidError, "Provided API key is not valid (403 Error)"
-    when '200' || 200
-      @data = JSON.parse(response.body)
+    if options[:json_data]
+      @data = JSON.parse(options[:json_data])
     else
-      raise StandardError, "Unexpected response from FakeNameGenerator.com API"
+      url = [API_URL, build_params].join('?')
+      response = Net::HTTP.get_response(URI.parse(url))
+
+      case response.code
+      when '500' || 500
+        raise APIConnectionError, "FakeNameGenerator API not working (500 Error)"
+      when '403' || 403
+        raise APIKeyInvalidError, "Provided API key is not valid (403 Error)"
+      when '200' || 200
+        @data = JSON.parse(response.body)
+      else
+        raise StandardError, "Unexpected response from FakeNameGenerator.com API"
+      end
     end
   end
 
