@@ -76,42 +76,7 @@ class FakeNameGenerator
   class APIConnectionError < StandardError; end
   class APIKeyInvalidError < StandardError; end
 
-  attr_reader :country,
-    :nameset,
-    :gender,
-    :data,
-    :full_name,
-    :first_name,
-    :middle_name,
-    :last_name,
-    :maiden_name,
-    :email_address,
-    :gender_name,
-    :street1,
-    :street2,
-    :street3,
-    :city,
-    :state,
-    :zip,
-    :country_code,
-    :phone_number,
-    :birthday,
-    :occupation,
-    :password,
-    :domain,
-    :cc_type,
-    :cc_number,
-    :cc_exp_month,
-    :cc_exp_year,
-    :cc_cvv,
-    :national_id,
-    :national_id_type,
-    :blood_type,
-    :weight_kilograms,
-    :weight_pounds,
-    :height_centimeters,
-    :height_inches,
-    :ups_tracking_number
+  attr_reader :country, :data, :gender, :nameset
 
   # === Parameters
   # * _api_key_ = API key for accessing the FakeNameGenerator.com API (required)
@@ -138,7 +103,6 @@ class FakeNameGenerator
       raise APIKeyInvalidError, "Provided API key is not valid (403 Error)"
     when '200' || 200
       @data = JSON.parse(response.body)
-      build_name
     else
       raise StandardError, "Unexpected response from FakeNameGenerator.com API"
     end
@@ -154,46 +118,20 @@ class FakeNameGenerator
     "wsvKey=#{@api_key}&output=#{DEFAULT_OUTPUT}&c=#{@country}&n=#{@nameset}&gen=#{@gender}"
   end
 
-  def build_name
-    # name, gender info
-    @gender_name              = data['identity']['gender']['value']
-    @full_name                = data['identity']['full_name']['value']
-    @first_name               = data['identity']['given_name']['value']
-    @middle_name              = data['identity']['middle_name']['value']
-    @last_name                = data['identity']['surname']['value']
-    @maiden_name              = data['identity']['maiden_name']['value']
-    @email_address            = data['identity']['email_address']['value']
-    # street address
-    @street1                  = data['identity']['street1']['value']
-    @street2                  = data['identity']['street2']['value']
-    @street3                  = data['identity']['street3']['value']
-    @city                     = data['identity']['city']['value']
-    @state                    = data['identity']['state']['value']
-    @zip                      = data['identity']['zip']['value']
-    @country_code             = data['identity']['country_code']['value']
-    @phone_number             = data['identity']['phone_number']['value']
-    # misc personal info
-    @birthday                 = data['identity']['birthday']['value']
-    @occupation               = data['identity']['occupation']['value']
-    @password                 = data['identity']['password']['value']
-    @domain                   = data['identity']['domain']['value']
-    # credit card info
-    @cc_type                  = data['identity']['cc_type']['value']
-    @cc_number                = data['identity']['cc_number']['value']
-    @cc_exp_month             = data['identity']['cc_exp_month']['value']
-    @cc_exp_year              = data['identity']['cc_exp_year']['value']
-    @cc_cvv                   = data['identity']['cc_cvv']['value']
-    # identifying information
-    @national_id              = data['identity']['national_id']['value']
-    @national_id_type         = data['identity']['national_id_type']['value']
-    @blood_type               = data['identity']['blood_type']['value']
-    @weight_kilograms         = data['identity']['weight_kilograms']['value']
-    @weight_pounds            = data['identity']['weight_pounds']['value']
-    @height_centimeters       = data['identity']['height_centimeters']['value']
-    @height_inches            = data['identity']['height_inches']['value']
-    @ups_tracking_number      = data['identity']['ups_tracking_number']['value']
+  METHOD_ALIASES = {
+    :gender_name => :gender,
+    :first_name => :given_name,
+    :last_name => :surname
+  }
 
+  def method_missing(sym)
+    if data['identity'][sym.to_s]
+      data['identity'][sym.to_s]['value']
+    elsif METHOD_ALIASES[sym]
+      data['identity'][METHOD_ALIASES[sym].to_s]['value']
+    else
+      raise NoMethodError, "undefined method \`#{sym}' for #{self}"
+    end
   end
-
 end
 
