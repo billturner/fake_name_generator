@@ -113,6 +113,8 @@ class FakeNameGenerator
     end
   end
 
+  ##
+  # Return the current fake name attributes as JSON
   def to_json
     @data.to_json
   end

@@ -52,6 +52,7 @@ I would love some help and pointers on how to make this a better gem.
 == Authors
 
 * Bill Turner <billturner@gmail.com>
+* Jim Meyer <https://github.com/purp/>
 
 == License
 
